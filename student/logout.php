@@ -1,20 +1,20 @@
 <?php
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../includes/functions.php';
-
+// student/logout.php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Log the logout activity before destroying session
-if (isset($_SESSION['student_id'])) {
-    logActivity($_SESSION['student_id'], 'student_logout', 'Student logged out');
-}
+// Store a logout message
+$_SESSION['logout_message'] = 'You have been successfully logged out.';
 
 // Destroy all session data
-session_unset();
 session_destroy();
 
-// Redirect to home page
-header('Location: ../index.php');
-exit;
+// Start a new session for the message
+session_start();
+$_SESSION['logout_message'] = 'You have been successfully logged out.';
+
+// Redirect to login page
+header('Location: ../pages/login.php');
+exit();
+?>

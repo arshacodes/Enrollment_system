@@ -15,19 +15,20 @@
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
+
                     <?php if (!isLoggedIn() && !isAdmin()): ?>
-                    <li class="nav-item">
-                        <a href="index.php?page=register" class="nav-link <?php echo (isset($_GET['page']) && $_GET['page'] == 'register') ? 'active' : ''; ?>">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="index.php?page=login" class="nav-link <?php echo (isset($_GET['page']) && $_GET['page'] == 'login') ? 'active' : ''; ?>">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a href="index.php?page=register" class="nav-link <?php echo (isset($_GET['page']) && $_GET['page'] == 'register') ? 'active' : ''; ?>">
+                                <i class="fas fa-user-plus"></i> Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.php?page=login" class="nav-link <?php echo (isset($_GET['page']) && $_GET['page'] == 'login') ? 'active' : ''; ?>">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </li>
                     <?php endif; ?>
-                    
+
                     <?php if (isLoggedIn()): ?>
                         <?php $user = getCurrentUser(); ?>
                         <li class="nav-item">
@@ -42,7 +43,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="student/profile.php" class="nav-link">
-                                <i class="fas fa-user"></i> <?php echo htmlspecialchars($user['name']); ?>
+                                <i class="fas fa-user"></i> 
+                                <?php echo htmlspecialchars($user['name'] ?? 'Student'); ?>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -51,7 +53,7 @@
                             </a>
                         </li>
                     <?php endif; ?>
-                    
+
                     <?php if (isAdmin()): ?>
                         <?php $admin = getCurrentAdmin(); ?>
                         <li class="nav-item">
@@ -61,7 +63,8 @@
                         </li>
                         <li class="nav-item">
                             <a href="logout.php" class="nav-link">
-                                <i class="fas fa-sign-out-alt"></i> Logout (<?php echo htmlspecialchars($admin['username']); ?>)
+                                <i class="fas fa-sign-out-alt"></i> 
+                                Logout (<?php echo htmlspecialchars($admin['username'] ?? 'Admin'); ?>)
                             </a>
                         </li>
                     <?php endif; ?>

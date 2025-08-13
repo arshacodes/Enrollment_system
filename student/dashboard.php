@@ -1,4 +1,3 @@
-studentdb
 <?php
 require_once '../config.php';
 require_once '../includes/database.php';
@@ -10,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['student_id'])) {
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 
@@ -20,7 +19,7 @@ $student = $db->fetch("SELECT * FROM students WHERE id = ?", [$studentId]);
 
 if (!$student) {
     session_destroy();
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 
@@ -58,7 +57,7 @@ if (!function_exists('formatDate')) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Student Dashboard - <?php echo APP_NAME; ?></title>
+    <title>Student Dashboard - <?php echo defined('APP_NAME') ? APP_NAME : 'NCST'; ?></title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -98,7 +97,7 @@ if (!function_exists('formatDate')) {
                 <a href="dashboard.php" style="margin-right: 20px; text-decoration: none; color: #333;">Dashboard</a>
                 <a href="enrollment.php" style="margin-right: 20px; text-decoration: none; color: #333;">Enrollment</a>
                 <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a>
-                <a href="../logout.php" style="text-decoration: none; color: #dc3545;">Logout</a>
+                <a href="logout.php" style="text-decoration: none; color: #dc3545;">Logout</a>
             </div>
         </div>
     </nav>
@@ -241,5 +240,5 @@ if (!function_exists('formatDate')) {
             });
         });
     </script>
-</body>
+</body> 
 </html>
