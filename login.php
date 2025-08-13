@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($student && password_verify($password, $student['password'])) {
         $_SESSION['student_id'] = $student['id'];
         $_SESSION['student_name'] = $student['name'];
-        header('Location: student/dashboard.php');
+        header('Location: ../enrollment_system/student/dashboard.php');
         exit;
     } else {
         $error = 'Invalid Student ID/Email or password.';

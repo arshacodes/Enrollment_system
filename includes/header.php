@@ -41,12 +41,12 @@
                                 <i class="fas fa-book"></i> Enrollment
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="student/profile.php" class="nav-link">
                                 <i class="fas fa-user"></i> 
                                 <?php echo htmlspecialchars($user['name'] ?? 'Student'); ?>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="logout.php" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i> Logout

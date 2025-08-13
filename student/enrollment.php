@@ -10,11 +10,19 @@ $user = getCurrentUser();
 $error = '';
 $success = '';
 
+$stmt = $db->prepare("SELECT * FROM students WHERE id = ?");
+$stmt->execute([$_SESSION['student_id']]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 // Handle enrollment/drop actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (isset($_POST['enroll_subject'])) {
             $subject_id = (int)$_POST['subject_id'];
+
+            // echo $user;
+            // echo $subject_id;
             
             $db->beginTransaction();
             

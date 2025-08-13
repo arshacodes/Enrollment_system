@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['student_id'])) {
-    header('Location: ../pages/login.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -19,7 +19,7 @@ $student = $db->fetch("SELECT * FROM students WHERE id = ?", [$studentId]);
 
 if (!$student) {
     session_destroy();
-    header('Location: ../pages/login.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -96,7 +96,7 @@ if (!function_exists('formatDate')) {
             <div>
                 <a href="dashboard.php" style="margin-right: 20px; text-decoration: none; color: #333;">Dashboard</a>
                 <a href="enrollment.php" style="margin-right: 20px; text-decoration: none; color: #333;">Enrollment</a>
-                <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a>
+                <!-- <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a> -->
                 <a href="logout.php" style="text-decoration: none; color: #dc3545;">Logout</a>
             </div>
         </div>

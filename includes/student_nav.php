@@ -24,11 +24,11 @@
                         <i class="fas fa-credit-card"></i> Billing
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="profile.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">
                         <i class="fas fa-user"></i> Profile
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="../logout.php" class="nav-link">
                         <i class="fas fa-sign-out-alt"></i> Logout

@@ -14,7 +14,7 @@ $debug_info = [];
 
 // Check if user is already logged in as student
 if (isset($_SESSION['student_id'])) {
-    header('Location: ../student/dashboard.php');
+    header('Location: ./enrollment_system/student/dashboard.php');
     exit;
 }
 
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || !empty($
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: ../student/dashboard.php');
+                    header('Location: student/dashboard.php');
                     exit;
 
                 // Try MD5
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || !empty($
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: ../student/dashboard.php');
+                    header('Location: student/dashboard.php');
                     exit;
 
                 // Try plain text (legacy)
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || !empty($
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: ../student/dashboard.php');
+                    header('Location: student/dashboard.php');
                     exit;
 
                 } else {

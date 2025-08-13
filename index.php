@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['course'] = $user['course'];
 
             logActivity("User login: " . $user['student_id'], $user['id'], 'login');
-            redirect('student/dashboard.php');
+            redirect('/enrollment_system/student/dashboard.php');
         }
     } catch (Exception $e) {
         $error = $e->getMessage();

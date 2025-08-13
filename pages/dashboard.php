@@ -96,7 +96,7 @@ if (!function_exists('formatDate')) {
             <div>
                 <a href="dashboard.php" style="margin-right: 20px; text-decoration: none; color: #333;">Dashboard</a>
                 <a href="enrollment.php" style="margin-right: 20px; text-decoration: none; color: #333;">Enrollment</a>
-                <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a>
+                <!-- <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a> -->
                 <a href="../logout.php" style="text-decoration: none; color: #dc3545;">Logout</a>
             </div>
         </div>
