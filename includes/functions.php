@@ -40,10 +40,10 @@ function isAdmin() {
  */
 function requireLogin() {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+        // ...existing code...
     }
     if (!isset($_SESSION['student_id'])) {
-        header('Location: ../index.php?page=login');
+        header('Location: /enrollment_system_m1/enrollment_system/login.php');
         exit;
     }
 }
@@ -56,7 +56,7 @@ function requireAdmin() {
 
 function getCurrentUser() {
     if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+    // ...existing code...
     }
     if (!isset($_SESSION['student_id'])) {
         return null;

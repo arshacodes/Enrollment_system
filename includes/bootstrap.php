@@ -45,7 +45,7 @@ function initializeSession() {
         ini_set('session.use_only_cookies', 1);
         ini_set('session.cookie_secure', isset($_SERVER['HTTPS']));
         
-        session_start();
+    // ...existing code...
         
         // Regenerate session ID periodically
         if (!isset($_SESSION['created'])) {
@@ -76,11 +76,11 @@ function requireLogin($redirect_to = null) {
             $current_dir = dirname($_SERVER['SCRIPT_NAME']);
             
             if (strpos($current_dir, '/student') !== false) {
-                $redirect_to = BASE_URL . '/pages/login.php';
+                $redirect_to = BASE_URL . '/login.php';
             } elseif (strpos($current_dir, '/admin') !== false) {
                 $redirect_to = BASE_URL . '/admin/login.php';
             } else {
-                $redirect_to = BASE_URL . '/pages/login.php';
+                $redirect_to = BASE_URL . '/login.php';
             }
         }
         
@@ -122,7 +122,7 @@ function logout($redirect_to = null) {
     session_destroy();
     
     // Redirect
-    $redirect_to = $redirect_to ?: BASE_URL . '/pages/login.php';
+    $redirect_to = $redirect_to ?: BASE_URL . '/login.php';
     
     if (ob_get_level()) {
         ob_end_clean();

@@ -3,9 +3,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/database.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// ...existing code...
 
 // Initialize variables
 $error_message = '';
@@ -22,7 +20,7 @@ if (isset($_SESSION['student_id'])) {
 if (isset($_SESSION['admin_id'])) {
     if (isset($_POST['clear_admin'])) {
         session_destroy();
-        session_start();
+    // ...existing code...
         $success_message = 'Admin session cleared. You can now login as a student.';
     }
 }
@@ -46,34 +44,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || !empty($
                 // Try password_verify (bcrypt/argon2)
                 if (password_verify($password, $student['password'])) {
                     session_destroy();
-                    session_start();
+                // ...existing code...
                     $_SESSION['student_id'] = $student['id'];
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: student/dashboard.php');
+                    header('Location: /enrollment_system_m1/enrollment_system/student/dashboard.php');
                     exit;
 
                 // Try MD5
                 } elseif (md5($password) === $student['password']) {
                     session_destroy();
-                    session_start();
+                // ...existing code...
                     $_SESSION['student_id'] = $student['id'];
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: student/dashboard.php');
+                    header('Location: /enrollment_system_m1/enrollment_system/student/dashboard.php');
                     exit;
 
                 // Try plain text (legacy)
                 } elseif ($password === $student['password']) {
                     session_destroy();
-                    session_start();
+                // ...existing code...
                     $_SESSION['student_id'] = $student['id'];
                     $_SESSION['student_name'] = $student['name'];
                     $_SESSION['student_email'] = $student['email'];
                     $_SESSION['student_course'] = $student['course'];
-                    header('Location: student/dashboard.php');
+                    header('Location: /enrollment_system_m1/enrollment_system/student/dashboard.php');
                     exit;
 
                 } else {
@@ -95,71 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['login']) || !empty($
 <div class="container">
     <div class="form-container">
         <div class="form-header">
-            <h2 class="form-title">Student Login</h2>
-            <p class="form-subtitle">Access your enrollment dashboard</p>
+            <h2 class="form-title">Student Login Disabled</h2>
+            <p class="form-subtitle">Please use the main login page: <a href="/enrollment_system_m1/enrollment_system/login.php">Student Login</a></p>
         </div>
-
-        <?php if (isset($_SESSION['admin_id'])): ?>
-            <div class="alert alert-warning">
-                <strong>Notice:</strong> You are currently logged in as Admin (<?php echo htmlspecialchars($_SESSION['admin_username']); ?>). 
-                To login as a student, clear your admin session first.
-            </div>
-            <form method="POST" style="margin-bottom: 20px;">
-                <button type="submit" name="clear_admin" class="btn btn-secondary">Clear Admin Session</button>
-            </form>
-        <?php endif; ?>
-
-        <?php if ($error_message): ?>
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i>
-                <?php echo htmlspecialchars($error_message); ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($success_message): ?>
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                <?php echo htmlspecialchars($success_message); ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST" id="login-form">
-            <div class="form-group">
-                <label class="form-label">Student ID or Email *</label>
-                <input type="text" name="login_id" class="form-input" 
-                       placeholder="Enter your Student ID or Email" 
-                       value="<?php echo isset($_POST['login_id']) ? htmlspecialchars($_POST['login_id']) : ''; ?>" 
-                       required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Password *</label>
-                <div class="password-input-wrapper">
-                    <input type="password" name="password" class="form-input" id="password" 
-                           placeholder="Enter your password" required>
-                    <button type="button" class="password-toggle" onclick="togglePassword()">
-                        <i class="fas fa-eye" id="password-toggle-icon"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" name="remember_me" 
-                           <?php echo isset($_POST['remember_me']) ? 'checked' : ''; ?>> 
-                    Remember me
-                </label>
-            </div>
-
-            <button type="submit" name="login" class="btn btn-primary btn-block" id="login-btn">
-                Login
-            </button>
-            
-            <div class="text-center mt-3">
-                <p>Don't have an account? <a href="register.php">Register here</a></p>
-                <p><a href="#" onclick="alert('Please contact the registrar office for password reset.')">Forgot Password?</a></p>
-            </div>
-        </form>
+        <div class="alert alert-warning">
+            This login form is disabled. Please use the main login page for student access.
+        </div>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 <?php
 // Create this file as: test_database.php in your root directory
-session_start();
+include_once '../config.php';
 
 echo "<h2>Database Connection Test</h2>";
 

@@ -1,5 +1,6 @@
 <?php
 // ========================= includes/header.php =========================
+include_once __DIR__ . '/functions.php';
 ?>
 <header class="header">
     <div class="container">
@@ -32,23 +33,23 @@
                     <?php if (isLoggedIn()): ?>
                         <?php $user = getCurrentUser(); ?>
                         <li class="nav-item">
-                            <a href="student/dashboard.php" class="nav-link">
+                            <a href="/enrollment_system_m1/Enrollment_system/student/dashboard.php" class="nav-link">
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="student/enrollment.php" class="nav-link">
+                            <a href="/enrollment_system_m1/Enrollment_system/student/enrollment.php" class="nav-link">
                                 <i class="fas fa-book"></i> Enrollment
                             </a>
                         </li>
                         <!-- <li class="nav-item">
-                            <a href="student/profile.php" class="nav-link">
+                            <!-- Profile nav link removed -->
                                 <i class="fas fa-user"></i> 
                                 <?php echo htmlspecialchars($user['name'] ?? 'Student'); ?>
                             </a>
                         </li> -->
                         <li class="nav-item">
-                            <a href="logout.php" class="nav-link">
+                            <a href="/enrollment_system_m1/Enrollment_system/student/logout.php" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </li>
@@ -57,12 +58,12 @@
                     <?php if (isAdmin()): ?>
                         <?php $admin = getCurrentAdmin(); ?>
                         <li class="nav-item">
-                            <a href="admin/dashboard.php" class="nav-link">
+                            <a href="/enrollment_system_m1/Enrollment_system/admin/dashboard.php" class="nav-link">
                                 <i class="fas fa-cogs"></i> Admin Panel
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="logout.php" class="nav-link">
+                            <a href="/enrollment_system_m1/Enrollment_system/logout.php" class="nav-link">
                                 <i class="fas fa-sign-out-alt"></i> 
                                 Logout (<?php echo htmlspecialchars($admin['username'] ?? 'Admin'); ?>)
                             </a>

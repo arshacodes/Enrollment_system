@@ -1,7 +1,7 @@
 <?php
 // student/logout.php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    include_once '../config.php';
 }
 
 // Store a logout message
@@ -11,7 +11,7 @@ $_SESSION['logout_message'] = 'You have been successfully logged out.';
 session_destroy();
 
 // Start a new session for the message
-session_start();
+// ...existing code...
 $_SESSION['logout_message'] = 'You have been successfully logged out.';
 
 // Redirect to login page

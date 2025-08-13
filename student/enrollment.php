@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             // Check if already enrolled
-            $existing = $db->fetch("SELECT id FROM enrollments WHERE student_id = ? AND subject_id = ?", [$user['id'], $subject_id]);
-            if ($existing) {
+            $existing = $db->fetch("SELECT id, status FROM enrollments WHERE student_id = ? AND subject_id = ?", [$user['id'], $subject_id]);
+            if ($existing && $existing['status'] === 'enrolled') {
                 throw new Exception("You are already enrolled in this subject.");
             }
             
@@ -45,13 +45,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 JOIN subjects s ON e.subject_id = s.id 
                 WHERE e.student_id = ? AND s.schedule = ? AND e.status = 'enrolled'
             ", [$user['id'], $subject['schedule']]);
-            
             if (!empty($conflicts)) {
                 throw new Exception("Schedule conflict with: " . $conflicts[0]['subject_code']);
             }
             
             // Enroll student
-            $db->execute("INSERT INTO enrollments (student_id, subject_id, status, created_at) VALUES (?, ?, 'enrolled', NOW())", [$user['id'], $subject_id]);
+            if ($existing && $existing['status'] === 'dropped') {
+                // Update dropped enrollment to active
+                $db->execute("UPDATE enrollments SET status = 'enrolled', created_at = NOW() WHERE id = ?", [$existing['id']]);
+            } else {
+                // Enroll student
+                $db->execute("INSERT INTO enrollments (student_id, subject_id, status, created_at) VALUES (?, ?, 'enrolled', NOW())", [$user['id'], $subject_id]);
+            }
             
             // Update available slots
             $db->execute("UPDATE subjects SET available_slots = available_slots - 1 WHERE id = ?", [$subject_id]);
@@ -59,6 +64,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db->commit();
             logActivity("Enrolled in subject: " . $subject['subject_code'], $user['id'], 'enrollment');
             $success = "Successfully enrolled in " . $subject['subject_code'] . "!";
+
+            // --- BILLING LOGIC (default values) ---
+            $semester = $subject['semester'] ?? 'N/A';
+            $tuition_fee = 10000; // Default tuition fee per enrollment
+            $lab_fee = 2000;      // Default lab fee per enrollment
+            $misc_fee = 1000;     // Default misc fee per enrollment
+            $total_amount = $tuition_fee + $lab_fee + $misc_fee;
+
+            // Check if billing record exists for this student and semester
+            $billing = $db->fetch("SELECT id FROM billing WHERE student_id = ? AND semester = ?", [$user['id'], $semester]);
+            if ($billing) {
+                // Update billing (add fees for each new enrollment)
+                $db->execute("UPDATE billing SET tuition_fee = tuition_fee + ?, lab_fee = lab_fee + ?, misc_fee = misc_fee + ?, total_amount = total_amount + ?, payment_status = 'pending', created_at = NOW() WHERE id = ?", [$tuition_fee, $lab_fee, $misc_fee, $total_amount, $billing['id']]);
+            } else {
+                // Insert new billing
+                $db->execute("INSERT INTO billing (student_id, semester, tuition_fee, lab_fee, misc_fee, total_amount, payment_status, created_at) VALUES (?, ?, ?, ?, ?, ?, 'pending', NOW())", [$user['id'], $semester, $tuition_fee, $lab_fee, $misc_fee, $total_amount]);
+            }
             
         } elseif (isset($_POST['drop_subject'])) {
             $enrollment_id = (int)$_POST['enrollment_id'];
@@ -88,7 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $success = "Successfully dropped " . $enrollment['subject_code'] . "!";
         }
     } catch (Exception $e) {
-        $db->rollback();
+        // Only rollback if a transaction is active
+        if ($db->getConnection()->inTransaction()) {
+            $db->rollback();
+        }
         $error = $e->getMessage();
     }
 }

@@ -109,7 +109,7 @@ $error = getFlashMessage('error') ?: $error;
                 include 'pages/register.php';
                 break;
             case 'login':
-                include 'pages/login.php';
+                include 'login.php';
                 break;
             case 'about':
                 include 'pages/about.php';

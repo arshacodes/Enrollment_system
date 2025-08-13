@@ -4,7 +4,7 @@ require_once '../includes/database.php';
 require_once '../includes/functions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    include_once '../config.php';
 }
 
 // Redirect to login if not logged in
@@ -96,7 +96,7 @@ if (!function_exists('formatDate')) {
             <div>
                 <a href="dashboard.php" style="margin-right: 20px; text-decoration: none; color: #333;">Dashboard</a>
                 <a href="enrollment.php" style="margin-right: 20px; text-decoration: none; color: #333;">Enrollment</a>
-                <!-- <a href="profile.php" style="margin-right: 20px; text-decoration: none; color: #333;">Profile</a> -->
+                
                 <a href="../logout.php" style="text-decoration: none; color: #dc3545;">Logout</a>
             </div>
         </div>
@@ -216,8 +216,8 @@ if (!function_exists('formatDate')) {
                     <a href="payment_status.php" class="btn" style="background: #6c757d;">
                         <i class="fas fa-receipt"></i> View Billing
                     </a>
-                    <a href="profile.php" class="btn" style="background: #6c757d;">
-                        <i class="fas fa-user"></i> Update Profile
+                    
+                        
                     </a>
                 </div>
             </div>

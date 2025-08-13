@@ -5,7 +5,7 @@ require_once '../includes/database.php';
 require_once '../includes/functions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+    include_once '../config.php';
 }
 
 $error = '';
@@ -130,23 +130,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="login-center-wrapper">
-        <div class="login-card">
-            <h2>Admin Login</h2>
-            <?php if ($error): ?>
-                <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-            <?php endif; ?>
-            <form action="login.php" method="post" class="login-form">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" required autofocus>
+            <div class="form-container" style="max-width: 400px; margin: 4rem auto; box-shadow: var(--shadow-lg); background: var(--white);">
+                <div class="form-header" style="margin-bottom: 2rem;">
+                    <h2 class="form-title" style="color: var(--primary-dark); margin-bottom: 0.5rem;">Admin Login</h2>
+                    <p class="form-subtitle" style="color: var(--gray-700);">Access the admin dashboard</p>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </form>
-        </div>
+                <?php if (!empty($error)): ?>
+                    <div class="alert alert-error" style="margin-bottom:1rem; color: var(--error); background: #fee2e2; border: 1px solid #fca5a5; padding: 0.75rem; border-radius: var(--radius-md); text-align:center; font-weight:500;">
+                        <?php echo htmlspecialchars($error); ?>
+                    </div>
+                <?php endif; ?>
+                <form method="post" class="login-form" style="margin-bottom: 1.5rem;">
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="username" class="form-label" style="color: var(--gray-800); font-weight:600;">Username *</label>
+                        <input type="text" name="username" id="username" class="form-input" style="background: var(--gray-50); color: var(--gray-900); border: 2px solid var(--gray-200);" placeholder="Enter your username" value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="password" class="form-label" style="color: var(--gray-800); font-weight:600;">Password *</label>
+                        <input type="password" name="password" id="password" class="form-input" style="background: var(--gray-50); color: var(--gray-900); border: 2px solid var(--gray-200);" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top:1rem; background: var(--primary-dark); color: var(--white); font-size:1.1rem;">Login</button>
+                </form>
+            </div>
     </div>
 </body>
 </html>
