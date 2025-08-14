@@ -1,7 +1,0 @@
-.enrolled-list {
-    gap: 1rem; /* for flex or grid containers */
-    /* OR */
-    margin-bottom: 1rem; /* for spacing below each item */
-    /* OR */
-    padding: 1rem; /* for inner spacing */
-}
