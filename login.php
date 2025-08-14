@@ -53,9 +53,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary btn-block" style="margin-top:1rem; background: var(--primary-dark); color: var(--white); font-size:1.1rem;">Login</button>
         </form>
         <div style="margin-top:2rem; text-align:center;">
-            <p style="margin-bottom:0.5rem; color: var(--gray-700);">Don't have an account? <a href="register.php" style="color: var(--primary); text-decoration:underline;">Register here</a>.</p>
-            <p><a href="forgot_password.php" style="color: var(--primary); text-decoration:underline;">Forgot Password?</a></p>
+            <p style="margin-bottom:0.5rem; color: var(--gray-700);">Don't have an account? <a href="pages/register.php" style="color: var(--primary); text-decoration:underline;" id="register-link">Register here</a>.</p>
+            <p><a href="#" style="color: var(--primary); text-decoration:underline;" id="forgot-link">Forgot Password?</a></p>
         </div>
+        <script>
+        document.getElementById('forgot-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            let msg = document.getElementById('forgot-msg');
+            if (!msg) {
+                msg = document.createElement('div');
+                msg.id = 'forgot-msg';
+                msg.className = 'alert alert-info';
+                msg.style = 'margin-bottom:1rem; color: var(--info); background: #dbeafe; border: 1px solid #93c5fd; padding: 0.75rem; border-radius: var(--radius-md); text-align:center; font-weight:500;';
+                msg.innerText = 'Please contact the registrar or admin to reset your password.';
+                document.querySelector('.form-container').insertBefore(msg, document.querySelector('.form-container').children[2]);
+            }
+        });
+        </script>
     </div>
 </body>
 </html>

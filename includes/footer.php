@@ -24,13 +24,13 @@
             <div>
                 <h4 style="margin-bottom: 1rem;">Contact Info</h4>
                 <p style="color: var(--gray-300); margin-bottom: 0.5rem;">
-                    <i class="fas fa-map-marker-alt"></i> 123 University Ave, City, State 12345
+                    <i class="fas fa-map-marker-alt"></i> Amafel Building, Aguinaldo Highway, Dasmariñas City, Cavite
                 </p>
                 <p style="color: var(--gray-300); margin-bottom: 0.5rem;">
                     <i class="fas fa-phone"></i> (555) 123-4567
                 </p>
                 <p style="color: var(--gray-300); margin-bottom: 0.5rem;">
-                    <i class="fas fa-envelope"></i> info@ncst.edu
+                    <i class="fas fa-envelope"></i> ncst.edu.ph
                 </p>
             </div>
             <div>

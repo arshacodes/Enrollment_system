@@ -33,11 +33,11 @@
                     <i class="fas fa-money-bill"></i> Payments
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="reports.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
+            <!-- <li class="nav-item">
+                <a href="reports.php" class="nav-link echo basename($_SERVER['PHP_SELF']) == 'reports.php' ? 'active' : ''; ?>">
                     <i class="fas fa-chart-bar"></i> Reports
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a href="../logout.php" class="nav-link">
                     <i class="fas fa-sign-out-alt"></i> Logout
